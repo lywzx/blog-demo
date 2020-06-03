@@ -7,7 +7,7 @@
     "ioc",
     "di"
   ],
-  "author": "yuanlin <yuanlin@qunhemail.com>",
+  "author": "lywzx liuyang@lyblog.net",
   "homepage": "https://github.com/lywzx/blog-demo#readme",
   "license": "ISC",
   "main": "lib/ts-ioc-demo.js",
