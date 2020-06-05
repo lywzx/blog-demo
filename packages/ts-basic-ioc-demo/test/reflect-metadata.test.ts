@@ -87,54 +87,71 @@ describe('reflect metadata api learning', function() {
     });
   });
 
-  const classDecorator = (target: Object) => {
-    console.log(Reflect.getMetadata('design:paramtypes', target));
-  };
-
-  const propertyDecorator = (target: Object, key: string | symbol) => {
-    console.log(Reflect.getMetadata('design:type', target, key));
-    console.log(Reflect.getMetadata('design:paramtypes', target, key));
-    console.log(Reflect.getMetadata('design:returntype', target, key));
-  };
-
-  // paramtypes -> [String] 即构造函数接收的参数
-  @classDecorator
-  class Demo {
-    innerValue: string;
-    constructor(val: string) {
-      this.innerValue = val;
-    }
-
-    /*
-     * 元数据的值如下：
-     * type -> String
-     * paramtypes -> undefined
-     * returntype -> undefined
-     */
-    @propertyDecorator
-    demo1: string = 'demo1';
-
-    /*
-     * 元数据的值如下：
-     * type -> Function
-     * paramtypes -> [String]
-     * returntype -> String
-     */
-    @propertyDecorator
-    demo2(str: string): string {
-      return str;
-    }
-  }
-
   describe('get design:type', function() {
-    it('prototype get design:type should undefined', function() {
-      const value = Reflect.getMetadata('design:type', Demo.prototype, 'value');
-      expect(value).to.be.equal(undefined);
+    const mp = new Map();
+    const classDecorator = (target: Object) => {
+      mp.set('design:class:decorator', Reflect.getMetadata('design:paramtypes', target));
+    };
+
+    const propertyDecorator = (target: Object, key: string | symbol) => {
+      console.log(Reflect.getMetadata('design:type', target, key));
+      console.log(Reflect.getMetadata('design:paramtypes', target, key));
+      console.log(Reflect.getMetadata('design:returntype', target, key));
+    };
+
+    // paramtypes -> [String] 即构造函数接收的参数
+    @classDecorator
+    class Demo {
+      innerValue: string;
+
+      constructor(val: string) {
+        this.innerValue = val;
+      }
+
+      /*
+       * 元数据的值如下：
+       * type -> String
+       * paramtypes -> undefined
+       * returntype -> undefined
+       */
+      @propertyDecorator
+      demo1: string = 'demo1';
+
+      /*
+       * 元数据的值如下：
+       * type -> Function
+       * paramtypes -> [String]
+       * returntype -> String
+       */
+      @propertyDecorator
+      demo2(str: string): string {
+        return str;
+      }
+    }
+
+    it('get design:params from constructor paramtypes', function() {
+      const value = Reflect.getMetadata('design:paramtypes', Demo);
+      expect(value).to.be.eqls([String]);
     });
 
-    it('prototype get design:type should has value', function() {
-      const value = Reflect.getMetadata('design:type', Demo.prototype, 'name');
-      expect(value).to.be.equal(undefined);
+    it('prototype get design:type should be string', function() {
+      const value = Reflect.getMetadata('design:type', Demo.prototype, 'demo1');
+      expect(value).to.be.equal(String);
+    });
+
+    it('prototype get design:type should be Function', function() {
+      const value = Reflect.getMetadata('design:type', Demo.prototype, 'demo2');
+      expect(value).to.be.equal(Function);
+    });
+
+    it('prototype get design:paramtypes should be string', function() {
+      const value = Reflect.getMetadata('design:paramtypes', Demo.prototype, 'demo2');
+      expect(value).to.be.eqls([String]);
+    });
+
+    it('prototype get design:returntype should be string', function() {
+      const value = Reflect.getMetadata('design:returntype', Demo.prototype, 'demo2');
+      expect(value).to.be.equal(String);
     });
   });
 });
