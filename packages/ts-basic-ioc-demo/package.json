@@ -19,7 +19,7 @@
     "src"
   ],
   "publishConfig": {
-    "registry": "http://npm-registry.qunhequnhe.com/"
+    "registry": "http://npm.registry.npm.taobao.org/"
   },
   "repository": {
     "type": "git",
