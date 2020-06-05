@@ -1,7 +1,7 @@
 {
-  "name": "ts-ioc-demo",
+  "name": "ts-basic-ioc-demo",
   "version": "0.0.0",
-  "description": "typescript ioc",
+  "description": "typescript basic ioc",
   "keywords": [
     "typescipt",
     "ioc",

@@ -1,11 +1,11 @@
-# `ts-ioc-demo`
+# `ts-basic-ioc-demo`
 
 > TODO: description
 
 ## Usage
 
 ```
-const tsIocDemo = require('ts-ioc-demo');
+const tsIocDemo = require('ts-basic-ioc-demo');
 
 // TODO: DEMONSTRATE API
 ```
