@@ -1,0 +1,59 @@
+{
+  "name": "ts-ioc-demo",
+  "version": "0.0.0",
+  "description": "typescript ioc",
+  "keywords": [
+    "typescipt",
+    "ioc",
+    "di"
+  ],
+  "author": "lywzx liuyang@lyblog.net",
+  "homepage": "https://github.com/lywzx/blog-demo#readme",
+  "license": "ISC",
+  "main": "src/ts-ioc-demo.js",
+  "directories": {
+    "lib": "src",
+    "test": "test"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "registry": "http://npm-registry.qunhequnhe.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lywzx/blog-demo.git"
+  },
+  "scripts": {
+    "start": "ts-node -r tsconfig-paths/register ./src/index.ts",
+    "build": "tsc",
+    "lint": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "test": "mocha --require ts-node/register test/*.ts test/**/*.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/lywzx/blog-demo/issues"
+  },
+  "dependencies": {
+    "@types/chai": "^4.2.9",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^14.0.10",
+    "@typescript-eslint/eslint-plugin": "^2.20.0",
+    "@typescript-eslint/parser": "^2.20.0",
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "lodash": "^4.17.15",
+    "mocha": "^7.0.1",
+    "prettier": "^1.19.1",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^8.6.2",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.8.2"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.155"
+  }
+}
