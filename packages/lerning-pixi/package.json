@@ -1,0 +1,36 @@
+{
+  "name": "lerning-pixi",
+  "version": "0.0.0",
+  "description": "leraning pixi.js",
+  "author": "lywzx <liuyang@lyblog.net>",
+  "homepage": "https://github.com/lywzx/blog-demo#readme",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "directories": {
+    "src": "src",
+    "test": "test"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lywzx/blog-demo.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/lywzx/blog-demo/issues"
+  },
+  "dependencies": {
+    "pixi.js": "^5.2.4"
+  },
+  "devDependencies": {
+    "@types/pixi.js": "^5.0.0",
+    "webpack": "^4.43.0"
+  }
+}
