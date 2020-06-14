@@ -24,9 +24,10 @@ indent_size = 4
 indent_style = tab
 
 # Indentation override for all JS under lib directory
-[{**.js,**.ts}]
+[{**.js,src/**.ts,test/**.ts,**.vue}]
 indent_style = space
 indent_size = 2
+quote_type  = single
 
 # Matches the exact files either package.json or .travis.yml
 [{package.json,.travis.yml}]

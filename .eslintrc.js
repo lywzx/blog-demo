@@ -13,12 +13,13 @@ module.exports = {
     'plugin:prettier/recommended',  // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
   ],
   parserOptions: {
-    'project': './tsconfig.json'
+    'project': 'tsconfig.json'
   },
   rules: {
-    'semi': 2,
+    'newline-per-chained-call': 2, // 链式调用时，必须换行
     'object-curly-newline': 1, // Incompatible with prettier
     'quotes': ['error', 'single'],
+    '@typescript-eslint/semi': [2, "always"],
     '@typescript-eslint/interface-name-prefix': 1,
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
