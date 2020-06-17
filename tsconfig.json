@@ -2,15 +2,15 @@
   "compilerOptions": {
     "preserveSymlinks": true,
     "target": "es5",
-    "module": "commonjs",
+    "module": "es6",
     "declaration": true,
-    "outDir": "./dist",
-    "declarationDir": "./dist/typings",
+    "outDir": "dist",
     "strict": true,
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "typeRoots": []
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": [
     "src/**/*",
