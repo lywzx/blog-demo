@@ -1,6 +1,7 @@
+import {CircleDependenceException} from '../exception';
 import {Constructor} from "../types";
-import {INJECTABLE} from "../decorator/injectable";
-import {NotInjectableException} from "../exception/not-injectable.exception";
+import {INJECTABLE} from "../decorator";
+import {NotInjectableException} from "../exception";
 import { Single } from "./single";
 import {getNeedInjectParams} from "./util";
 import {InjectFactoryInterface} from "../interface/inject-factory.interface";
@@ -14,7 +15,7 @@ export interface FactoryFunctionInjectInterface<T> {
 
     use: InjectFactoryInterface<T> | InjectValueInterface<T> | InjectUseClassInterface<T>
 }
-export function Factory<T>(target: Constructor<T> | FactoryFunctionInjectInterface<T>, reference?: Constructor<T> | FactoryFunctionInjectInterface<T>): T {
+export function Factory<T>(target: Constructor<T> | FactoryFunctionInjectInterface<T>, reference?: Constructor<T> | FactoryFunctionInjectInterface<T>, deps: any[] = []): T {
     let realTarget: Constructor<T> | InjectFactoryInterface<T> | undefined;
 
     if ((target as FactoryFunctionInjectInterface<T>).__inject) {
@@ -39,6 +40,14 @@ export function Factory<T>(target: Constructor<T> | FactoryFunctionInjectInterfa
     // single
     if (Single.get(realTarget)) {
         return Single.get(realTarget) as T;
+    }
+
+    if (deps.includes(target)) {
+        let targetName = '';
+        if ('name' in target) {
+            targetName = target.name;
+        }
+        throw new CircleDependenceException(targetName || target.toString(), deps[deps.length - 1]);
     }
 
     if (!('factory' in realTarget) && !Reflect.getMetadata(INJECTABLE, realTarget)) {
@@ -69,7 +78,7 @@ export function Factory<T>(target: Constructor<T> | FactoryFunctionInjectInterfa
 
     // 将参数依次实例化
     const args = providers.map((provider) => {
-        return Factory(provider, target);
+        return Factory(provider, target, [...deps, realTarget]);
     });
 
     // 将实例化的数组作为target类的参数，并返回target的实例
