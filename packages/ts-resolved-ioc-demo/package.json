@@ -21,6 +21,7 @@
     "url": "git+https://github.com/lywzx/blog-demo.git"
   },
   "scripts": {
+    "build": "tsc",
     "test": "mocha --require ts-node/register test/*.ts test/**/*.spec.ts"
   },
   "bugs": {
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.2.7",
+    "@types/lodash": "^4.14.155",
     "@types/mocha": "^5.2.7",
     "@types/node": "^13.1.2",
     "@typescript-eslint/eslint-plugin": "^2.14.0",

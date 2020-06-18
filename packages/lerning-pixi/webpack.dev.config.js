@@ -36,7 +36,7 @@ module.exports = {
     alias: {
 
     },
-    extensions: ['.js', '.ts', '.d.ts', '.tsx', '.css'],
+    extensions: ['.js', '.ts', '.h.ts', '.tsx', '.css'],
   },
 
   optimization: {
