@@ -19,7 +19,7 @@ export function getNeedInjectParams<T>(target: Constructor<T> | InjectFactoryInt
         }
     }
 
-    const inject = Reflect.getMetadata('design:paramtypes', target);
+    const inject = Reflect.getMetadata('design:paramtypes', target) || [];
     if (!inject.length) {
         return [];
     }
