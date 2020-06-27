@@ -3,7 +3,7 @@ import {Constructor} from "../types";
 import {INJECTABLE} from "../decorator";
 import {NotInjectableException} from "../exception";
 import { Single } from "./single";
-import {getNeedInjectParams} from "./util";
+import {getNeedInjectParams , getTargetName} from "./util";
 import {InjectFactoryInterface} from "../interface/inject-factory.interface";
 import {InjectValueInterface} from "../interface/inject-value.interface";
 import {InjectUseClassInterface} from "../interface/inject-use-class.interface";
@@ -20,34 +20,23 @@ export function Factory<T>(target: Constructor<T> | FactoryFunctionInjectInterfa
 
     if ((target as FactoryFunctionInjectInterface<T>).__inject) {
         const use = (target as FactoryFunctionInjectInterface<T>).use;
-
         if ( 'useValue' in use) {
             return use.useValue as T;
         }
-
         if ('factory' in use) {
             realTarget = use;
         }
-
         if ('useClass' in use) {
             realTarget = use.useClass;
         }
     }
-    if (realTarget === undefined) {
+    if ( !realTarget ) {
         realTarget = target as Constructor<T>;
     }
 
     // single
     if (Single.get(realTarget)) {
         return Single.get(realTarget) as T;
-    }
-
-    if (deps.includes(target)) {
-        let targetName = '';
-        if ('name' in target) {
-            targetName = target.name;
-        }
-        throw new CircleDependenceException(targetName || target.toString(), deps[deps.length - 1]);
     }
 
     if (!('factory' in realTarget) && !Reflect.getMetadata(INJECTABLE, realTarget)) {
@@ -78,7 +67,19 @@ export function Factory<T>(target: Constructor<T> | FactoryFunctionInjectInterfa
 
     // 将参数依次实例化
     const args = providers.map((provider) => {
-        return Factory(provider, target, [...deps, realTarget]);
+        const {
+            value,
+            optional,
+        } = provider;
+
+        if (deps.includes(value)) {
+            if (optional) {
+                return undefined;
+            }
+            throw new CircleDependenceException(realTarget && getTargetName(realTarget) || '', getTargetName(deps[deps.length - 1]))
+        }
+
+        return Factory(value, target, [...deps, realTarget]);
     });
 
     // 将实例化的数组作为target类的参数，并返回target的实例

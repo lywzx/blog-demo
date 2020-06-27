@@ -3,8 +3,9 @@ import {expect} from 'chai';
 import {Car} from "../lib/cars/car";
 import {Wheel} from "../lib/cars/wheel";
 import {H} from "../lib/inject-circle/h";
+import {CircleA, CircleB, CircleC} from '../lib/inject-optional';
 import {FactoryUseValue} from "../lib/inject-value/factory-use-value";
-import {NotInjectableException} from "../../src/exception";
+import {CircleDependenceException, NotInjectableException} from "../../src/exception";
 import {Target} from "../lib/inject-constructor/target";
 import {TargetDep} from "../lib/inject-constructor/target-dep";
 import {TargetDeep} from "../lib/inject-constructor/target-deep";
@@ -69,8 +70,32 @@ describe('factory test', function () {
             useClass: H
         });
 
-        const h = Factory(H);
+        let err;
+        try {
+            const h = Factory(H);
+        } catch (e) {
+            err = e;
+        }
 
-        expect(h).to.be.instanceOf(H);
+        expect(err && err.name).to.be.equal(CircleDependenceException.name);
+    });
+
+    it('#factory test optional', function () {
+
+        InjectMap.set('circle-a', {
+            useClass: CircleA
+        });
+
+        const circleA = Factory(CircleA);
+
+        expect(circleA).to.be.instanceOf(CircleA);
+
+        expect(circleA.circleB).to.be.instanceOf(CircleB);
+
+        expect(circleA.circleB.circleC).to.be.instanceOf(CircleC);
+
+        expect(circleA.circleB.circleC).to.be.undefined('circleA');
+
+
     });
 });
