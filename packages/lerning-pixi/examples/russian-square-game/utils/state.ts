@@ -1,5 +1,9 @@
 import {Container} from 'pixi.js';
+
 export abstract class State extends Container{
+
+  public visible: boolean;
+
   protected constructor() {
     super();
 

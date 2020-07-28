@@ -3,6 +3,11 @@ import {Key, KEY_MAP} from "./key";
 
 interface KeyboardInterface {
   space: Key;
+  escape: Key;
+  left: Key;
+  up: Key;
+  right: Key;
+  down: Key;
 }
 
 export class Keyboard implements KeyboardInterface {
@@ -11,7 +16,16 @@ export class Keyboard implements KeyboardInterface {
 
   // @ts-ignore
   public space: Key;
-
+  // @ts-ignore
+  public down: Key;
+  // @ts-ignore
+  public escape: Key;
+  // @ts-ignore
+  public left: Key;
+  // @ts-ignore
+  public right: Key;
+  // @ts-ignore
+  public up: Key;
 
   constructor() {
     this.keys = {};
@@ -36,5 +50,6 @@ export class Keyboard implements KeyboardInterface {
     });
 
   }
+
 
 }

@@ -13,7 +13,7 @@ export class Key {
 
   public name: string;
 
-  protected pressed = false;
+  public pressed = false;
 
   protected repeatsCount = 0;
 

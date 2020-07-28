@@ -15,7 +15,7 @@ export class Game {
 
   public key: Keyboard;
 
-  protected scores: ScoreTable;
+  public scores: ScoreTable;
 
   constructor(public app: Application) {
     this.key = new Keyboard();
@@ -59,8 +59,9 @@ export class Game {
   /**
    *
    * @param stateName
+   * @param opts
    */
-  public setState(stateName: string, opts: {keepVisible?: boolean, restart?: boolean}) {
+  public setState(stateName: string, opts: {keepVisible?: boolean;restart?: boolean; score?: any}) {
     const oldState = this.state;
 
     this.state = null;
