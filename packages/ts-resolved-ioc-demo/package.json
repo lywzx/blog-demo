@@ -28,7 +28,7 @@
     "url": "https://github.com/lywzx/blog-demo/issues"
   },
   "dependencies": {
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/chai": "^4.2.7",
